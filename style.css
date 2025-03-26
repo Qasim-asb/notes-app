@@ -1,0 +1,95 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+	background-color: #f5f5f5;
+	justify-items: center;
+	padding-block: clamp(1.5rem, 1.1941rem + 1.5296vw, 2.5rem);
+}
+
+.container {
+	width: min(90%, 900px);
+}
+
+h1 {
+	font-size: clamp(1.4238rem, 1.1125rem + 1.5565vw, 2.4414rem);
+	color: #333;
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	margin-bottom: 1em;
+}
+
+h1 img {
+	width: 2.25em;
+	height: 2.25em;
+}
+
+
+.btn {
+	font-size: clamp(0.8889rem, 0.8549rem + 0.17vw, 1rem);
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	padding: 0.8em 1.25em;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 500;
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	margin-bottom: 1.5em;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: background 0.3s ease;
+}
+
+.btn:hover {
+	background-color: #45a049;
+}
+
+.btn img {
+	width: 1.125em;
+	height: 1.125em;
+}
+
+.notes-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 27.31rem), 1fr));
+	gap: clamp(1rem, 0.9235rem + 0.3824vw, 1.25rem);
+}
+
+.input-box {
+	font-size: clamp(0.8889rem, 0.8549rem + 0.17vw, 1rem);
+	background-color: #fff;
+	border-radius: 10px;
+	padding: 1em 3.5em 1em 1em;
+	min-height: 12.5em;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	position: relative;
+	outline: none;
+}
+
+.input-box img {
+	width: 2em;
+	height: 2em;
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	cursor: pointer;
+	opacity: 0.5;
+	transition: opacity 0.3s;
+}
+
+.input-box img:hover {
+	opacity: 1;
+}
+
+@media (width < 62rem) {
+	.input-box img {
+		opacity: 1;
+	}
+}
