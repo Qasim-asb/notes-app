@@ -1,42 +1,37 @@
 const notesContainer = document.querySelector(".notes-container");
 const createBtn = document.querySelector(".btn");
+const clearBtn = document.querySelector("#clearBtn");
 
-function initNotes() {
+const initNotes = () => {
   const savedNotes = localStorage.getItem("notes");
   if (savedNotes) {
     notesContainer.innerHTML = savedNotes;
-    
+
     const notes = document.querySelectorAll(".input-box");
     if (notes.length > 0) {
       notes[notes.length - 1].focus();
     }
+  } else {
+    document.querySelector(".input-box").focus();
   }
 }
 initNotes();
 
-function updateStorage() {
-    localStorage.setItem("notes", notesContainer.innerHTML);
+const updateStorage = () => {
+  localStorage.setItem("notes", notesContainer.innerHTML);
 }
 
 createBtn.addEventListener("click", () => {
-  const newNote = document.createElement("p");
-  newNote.className = "input-box";
-  newNote.contentEditable = 'true';
+  const noteContainer = document.createElement("div");
+  noteContainer.className = "note-container";
+  noteContainer.innerHTML = `
+  <img src="images/delete.png" alt="Delete note">
+  <p class="input-box" contenteditable="true"></p>
+  `;
 
-  const deleteBtn = document.createElement("img");
-  deleteBtn.src = "images/delete.png";
-  deleteBtn.alt = "Delete note";
-  
-  newNote.append(deleteBtn);
-  notesContainer.append(newNote);
+  notesContainer.append(noteContainer);
 
-  // Alternative
-  // notesContainer.appendChild(newNote).appendChild(img);
-
-  // Or alternative
-  // notesContainer.append(inputBox.append(img));
-
-  newNote.focus();
+  noteContainer.querySelector(".input-box").focus();
 });
 
 notesContainer.addEventListener("click", function (e) {
@@ -47,7 +42,22 @@ notesContainer.addEventListener("click", function (e) {
 });
 
 notesContainer.addEventListener("input", (e) => {
-  if (e.target.classList.contains("input-box")) {
+  if (e.target.tagName === "P") {
     updateStorage();
+  }
+});
+
+clearBtn.addEventListener("click", () => {
+  if (confirm("Are you sure you want to delete all notes?")) {
+    notesContainer.innerHTML = `
+      <div class="note-container">
+				<img src="images/delete.png" alt="Delete note">
+				<p class="input-box" contenteditable="true"></p>
+			</div>
+      `;
+
+    localStorage.removeItem("notes");
+
+    document.querySelector(".input-box").focus();
   }
 });

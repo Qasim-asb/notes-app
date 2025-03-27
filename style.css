@@ -5,6 +5,11 @@
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+img {
+	width: 1.5em;
+	height: 1.5em;
+}
+
 body {
 	background-color: #f5f5f5;
 	justify-items: center;
@@ -21,7 +26,6 @@ h1 {
 	display: flex;
 	align-items: center;
 	gap: 0.5em;
-	margin-bottom: 1em;
 }
 
 h1 img {
@@ -42,7 +46,7 @@ h1 img {
 	display: flex;
 	align-items: center;
 	gap: 0.5em;
-	margin-bottom: 1.5em;
+	margin-block: 1.5em;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	transition: background 0.3s ease;
 }
@@ -51,10 +55,6 @@ h1 img {
 	background-color: #45a049;
 }
 
-.btn img {
-	width: 1.125em;
-	height: 1.125em;
-}
 
 .notes-container {
 	display: grid;
@@ -62,20 +62,21 @@ h1 img {
 	gap: clamp(1rem, 0.9235rem + 0.3824vw, 1.25rem);
 }
 
-.input-box {
+.note-container {
 	font-size: clamp(0.8889rem, 0.8549rem + 0.17vw, 1rem);
+	position: relative;
+}
+
+.input-box {
 	background-color: #fff;
 	border-radius: 10px;
 	padding: 1em 3.5em 1em 1em;
 	min-height: 12.5em;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	position: relative;
 	outline: none;
 }
 
-.input-box img {
-	width: 2em;
-	height: 2em;
+.note-container img {
 	position: absolute;
 	top: 1em;
 	right: 1em;
@@ -84,12 +85,12 @@ h1 img {
 	transition: opacity 0.3s;
 }
 
-.input-box img:hover {
+.note-container img:hover {
 	opacity: 1;
 }
 
 @media (width < 62rem) {
-	.input-box img {
+	.note-container img {
 		opacity: 1;
 	}
 }
