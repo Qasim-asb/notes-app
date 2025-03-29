@@ -2,20 +2,32 @@ const notesContainer = document.querySelector(".notes-container");
 const createBtn = document.querySelector(".btn");
 const clearBtn = document.querySelector("#clearBtn");
 
-const initNotes = () => {
-  const savedNotes = localStorage.getItem("notes");
-  if (savedNotes) {
-    notesContainer.innerHTML = savedNotes;
+const focusLastNote = () => {
+  const notes = document.querySelectorAll(".input-box");
+  notes[notes.length - 1].focus();
+};
 
-    const notes = document.querySelectorAll(".input-box");
-    if (notes.length > 0) {
-      notes[notes.length - 1].focus();
-    }
+const contentCreater = () => {
+  notesContainer.innerHTML = `
+  <div class="note-container">
+    <img src="images/delete.png" alt="Delete note">
+    <p class="input-box" contenteditable="true"></p>
+  </div>
+  `;
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const savedNotes = localStorage.getItem("notes");
+
+  if (savedNotes && savedNotes.trim()) {
+    notesContainer.innerHTML = savedNotes;
   } else {
-    document.querySelector(".input-box").focus();
+    contentCreater();
   }
-}
-initNotes();
+
+  focusLastNote();
+});
+
 
 const updateStorage = () => {
   localStorage.setItem("notes", notesContainer.innerHTML);
@@ -30,8 +42,7 @@ createBtn.addEventListener("click", () => {
   `;
 
   notesContainer.append(noteContainer);
-
-  noteContainer.querySelector(".input-box").focus();
+  focusLastNote();
 });
 
 notesContainer.addEventListener("click", function (e) {
@@ -47,17 +58,18 @@ notesContainer.addEventListener("input", (e) => {
   }
 });
 
+notesContainer.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    document.execCommand("insertLineBreak");
+  }
+});
+
 clearBtn.addEventListener("click", () => {
   if (confirm("Are you sure you want to delete all notes?")) {
-    notesContainer.innerHTML = `
-      <div class="note-container">
-				<img src="images/delete.png" alt="Delete note">
-				<p class="input-box" contenteditable="true"></p>
-			</div>
-      `;
-
     localStorage.removeItem("notes");
 
-    document.querySelector(".input-box").focus();
+    contentCreater();
+    focusLastNote();
   }
 });
