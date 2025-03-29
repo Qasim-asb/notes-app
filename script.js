@@ -1,6 +1,8 @@
 const notesContainer = document.querySelector(".notes-container");
-const createBtn = document.querySelector(".btn");
+const createBtn = document.querySelector("#createBtn");
 const clearBtn = document.querySelector("#clearBtn");
+const modal = document.querySelector(".modal");
+const modalContent = document.querySelector(".modal-content")
 
 const focusLastNote = () => {
   const notes = document.querySelectorAll(".input-box");
@@ -58,7 +60,7 @@ notesContainer.addEventListener("input", (e) => {
   }
 });
 
-notesContainer.addEventListener('keydown', function(e) {
+notesContainer.addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
     e.preventDefault();
     document.execCommand("insertLineBreak");
@@ -66,10 +68,23 @@ notesContainer.addEventListener('keydown', function(e) {
 });
 
 clearBtn.addEventListener("click", () => {
-  if (confirm("Are you sure you want to delete all notes?")) {
+  toggleModal();
+});
+
+modalContent.addEventListener("click", (e) => {
+  if (e.target.textContent === "Yes") {
     localStorage.removeItem("notes");
 
     contentCreater();
     focusLastNote();
+    toggleModal();
+
+  } else if (e.target.textContent === "Cancel") {
+    toggleModal();
   }
 });
+
+function toggleModal() {
+  modal.classList.toggle("close");
+  document.body.classList.toggle("overflow-hidden");
+}
