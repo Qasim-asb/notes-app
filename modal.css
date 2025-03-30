@@ -1,0 +1,32 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.modal-content {
+  font-size: clamp(0.875rem, 0.7603rem + 0.5736vw, 1.25rem);
+  background-color: #fff;
+  padding: 1.5em;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modal-content p {
+  margin-bottom: 1.2em;
+}
+
+.modal-btn {
+  padding: 0.4em 0.8em;
+}
+
+.close {
+  display: none;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}

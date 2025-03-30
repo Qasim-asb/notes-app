@@ -5,6 +5,22 @@
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.btn {
+	font-size: clamp(0.8889rem, 0.8549rem + 0.17vw, 1rem);
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 500;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: background 0.3s ease;
+}
+
+.btn:hover {
+	background-color: #45a049;
+}
+
 img {
 	width: 1.5em;
 	height: 1.5em;
@@ -33,28 +49,13 @@ h1 img {
 	height: 2.25em;
 }
 
-
-.btn {
-	font-size: clamp(0.8889rem, 0.8549rem + 0.17vw, 1rem);
-	background-color: #4CAF50;
-	color: white;
-	border: none;
+.notes-btn {
 	padding: 0.8em 1.25em;
-	border-radius: 8px;
-	cursor: pointer;
-	font-weight: 500;
 	display: flex;
 	align-items: center;
 	gap: 0.5em;
 	margin-block: 1.5em;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	transition: background 0.3s ease;
 }
-
-.btn:hover {
-	background-color: #45a049;
-}
-
 
 .notes-container {
 	display: grid;

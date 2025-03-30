@@ -1,6 +1,8 @@
 const notesContainer = document.querySelector(".notes-container");
-const createBtn = document.querySelector(".btn");
+const createBtn = document.querySelector("#createBtn");
 const clearBtn = document.querySelector("#clearBtn");
+const modal = document.querySelector(".modal");
+const modalContent = document.querySelector(".modal-content")
 
 const focusLastNote = () => {
   const notes = document.querySelectorAll(".input-box");
@@ -8,12 +10,13 @@ const focusLastNote = () => {
 };
 
 const contentCreater = () => {
-  notesContainer.innerHTML = `
-  <div class="note-container">
+  const noteContainer = document.createElement("div");
+  noteContainer.className = "note-container";
+  noteContainer.innerHTML = `
     <img src="images/delete.png" alt="Delete note">
     <p class="input-box" contenteditable="true"></p>
-  </div>
   `;
+  return noteContainer;
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -22,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (savedNotes && savedNotes.trim()) {
     notesContainer.innerHTML = savedNotes;
   } else {
-    contentCreater();
+    notesContainer.append(contentCreater());
   }
 
   focusLastNote();
@@ -34,14 +37,7 @@ const updateStorage = () => {
 }
 
 createBtn.addEventListener("click", () => {
-  const noteContainer = document.createElement("div");
-  noteContainer.className = "note-container";
-  noteContainer.innerHTML = `
-  <img src="images/delete.png" alt="Delete note">
-  <p class="input-box" contenteditable="true"></p>
-  `;
-
-  notesContainer.append(noteContainer);
+  notesContainer.append(contentCreater());
   focusLastNote();
 });
 
@@ -58,18 +54,29 @@ notesContainer.addEventListener("input", (e) => {
   }
 });
 
-notesContainer.addEventListener('keydown', function(e) {
+notesContainer.addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
     e.preventDefault();
     document.execCommand("insertLineBreak");
   }
 });
 
-clearBtn.addEventListener("click", () => {
-  if (confirm("Are you sure you want to delete all notes?")) {
-    localStorage.removeItem("notes");
+const toggleModal = () => {
+  modal.classList.toggle("close");
+  document.body.classList.toggle("overflow-hidden");
+};
 
-    contentCreater();
+clearBtn.addEventListener("click", toggleModal);
+
+modalContent.addEventListener("click", (e) => {
+  if (e.target.textContent === "Yes") {
+    localStorage.removeItem("notes");
+    notesContainer.innerHTML = "";
+    notesContainer.append(contentCreater());
     focusLastNote();
+    toggleModal();
+
+  } else if (e.target.textContent === "Cancel") {
+    toggleModal();
   }
 });
