@@ -10,12 +10,13 @@ const focusLastNote = () => {
 };
 
 const contentCreater = () => {
-  notesContainer.innerHTML = `
-  <div class="note-container">
+  const noteContainer = document.createElement("div");
+  noteContainer.className = "note-container";
+  noteContainer.innerHTML = `
     <img src="images/delete.png" alt="Delete note">
     <p class="input-box" contenteditable="true"></p>
-  </div>
   `;
+  return noteContainer;
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -24,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (savedNotes && savedNotes.trim()) {
     notesContainer.innerHTML = savedNotes;
   } else {
-    contentCreater();
+    notesContainer.append(contentCreater());
   }
 
   focusLastNote();
@@ -36,14 +37,7 @@ const updateStorage = () => {
 }
 
 createBtn.addEventListener("click", () => {
-  const noteContainer = document.createElement("div");
-  noteContainer.className = "note-container";
-  noteContainer.innerHTML = `
-  <img src="images/delete.png" alt="Delete note">
-  <p class="input-box" contenteditable="true"></p>
-  `;
-
-  notesContainer.append(noteContainer);
+  notesContainer.append(contentCreater());
   focusLastNote();
 });
 
@@ -67,15 +61,18 @@ notesContainer.addEventListener('keydown', function (e) {
   }
 });
 
-clearBtn.addEventListener("click", () => {
-  toggleModal();
-});
+const toggleModal = () => {
+  modal.classList.toggle("close");
+  document.body.classList.toggle("overflow-hidden");
+};
+
+clearBtn.addEventListener("click", toggleModal);
 
 modalContent.addEventListener("click", (e) => {
   if (e.target.textContent === "Yes") {
     localStorage.removeItem("notes");
-
-    contentCreater();
+    notesContainer.innerHTML = "";
+    notesContainer.append(contentCreater());
     focusLastNote();
     toggleModal();
 
@@ -83,8 +80,3 @@ modalContent.addEventListener("click", (e) => {
     toggleModal();
   }
 });
-
-function toggleModal() {
-  modal.classList.toggle("close");
-  document.body.classList.toggle("overflow-hidden");
-}
